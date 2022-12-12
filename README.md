@@ -1,1 +1,1 @@
-# petstagram
+The project will cover the following functionalities: user registration, login, and logout; each user can add pets to their profile and upload pet photos; a user can view all photos of pets, open details, can like and comment on a photo. Each user can edit and delete their photos and pet information.
