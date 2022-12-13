@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
+
 {% block page_content %}
     <!-- 404 page -->
     <div class="not-found-img">
@@ -13,7 +14,7 @@
 
         <h3>Error 404 - page not found.</h3>
         <!-- Link to Home Page -->
-        <a href="#">
+        <a href="{% url 'index' %}">
             <button>Return to Petstagram</button>
         </a>
     </div>
