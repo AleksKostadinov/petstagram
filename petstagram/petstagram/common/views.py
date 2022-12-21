@@ -1,6 +1,10 @@
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from petstagram.common.models import PhotoLike
+from petstagram.common.utils import get_photo_url, get_user_liked_photos
 from petstagram.photos.models import Photo
+import pyperclip
+
 
 def apply_likes_count(photo):
     photo.likes_count = photo.photolike_set.count()
@@ -12,17 +16,15 @@ def apply_user_liked_photo(photo):
     return photo
 
 
-def index(request): 
+def index(request):
     photos = [apply_likes_count(photo) for photo in Photo.objects.all()]
     photos = [apply_user_liked_photo(photo) for photo in photos]
-    
+
     context = {
         'photos': photos
     }
     return render(request, 'common/home-page.html', context)
 
-def get_user_liked_photos(photo_id):
-    return PhotoLike.objects.filter(photo_id=photo_id)
 
 def like_photo(request, photo_id):
     user_liked_photos = get_user_liked_photos(photo_id)
@@ -32,6 +34,11 @@ def like_photo(request, photo_id):
         PhotoLike.objects.create(
             photo_id=photo_id,
         )
-    
-    redirect_path = request.META['HTTP_REFERER'] + f'#photo-{photo_id}'
-    return redirect(redirect_path)
+
+    return redirect(get_photo_url(request, photo_id))
+
+
+def share_photo(request, photo_id):
+    photo_details_url = reverse('details photo', kwargs={'pk': photo_id})
+    pyperclip.copy(photo_details_url)
+    return redirect(get_photo_url(request, photo_id))
