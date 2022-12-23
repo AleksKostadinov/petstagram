@@ -1,19 +1,10 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, resolve_url
 from django.urls import reverse
 from petstagram.common.models import PhotoLike
 from petstagram.common.utils import get_photo_url, get_user_liked_photos
+from petstagram.core.photo_utils import apply_likes_count, apply_user_liked_photo
 from petstagram.photos.models import Photo
 import pyperclip
-
-
-def apply_likes_count(photo):
-    photo.likes_count = photo.photolike_set.count()
-    return photo
-
-
-def apply_user_liked_photo(photo):
-    photo.is_liked_by_user = photo.likes_count > 0
-    return photo
 
 
 def index(request):
@@ -21,9 +12,9 @@ def index(request):
     photos = [apply_user_liked_photo(photo) for photo in photos]
 
     context = {
-        'photos': photos
+        'photos': photos,
     }
-    return render(request, 'common/home-page.html', context)
+    return render(request, 'common/home-page.html', context,)
 
 
 def like_photo(request, photo_id):
