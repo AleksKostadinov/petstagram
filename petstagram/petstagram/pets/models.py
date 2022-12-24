@@ -17,7 +17,9 @@ class Pet(StrFromFieldsMixin, models.Model):
         super().save(*args, **kwargs)
 
         if not self.slug:
-            self.slug = slugify(f'{self.id}-{self.name}')
+            self.slug = slugify(f'{self.pk}-{self.name}')
 
         return super().save(*args, **kwargs)
-
+    
+    # def __str__(self):
+    #     return self.name
