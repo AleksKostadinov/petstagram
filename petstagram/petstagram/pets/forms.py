@@ -1,9 +1,9 @@
-from dataclasses import fields
 from django import forms
+from petstagram.core.form_mixins import DisabledFormMixin
 from petstagram.pets.models import Pet
 
 
-class PetCreateForm(forms.ModelForm):
+class PetBaseForm(forms.ModelForm):
     class Meta:
         model = Pet 
         # fields = '__all__' (not the case, we want to skip the slug)
@@ -34,9 +34,28 @@ class PetCreateForm(forms.ModelForm):
             ),
         }
 
-
-class PetEditForm:
+class PetCreateForm(PetBaseForm):
     pass
 
-class PetDeleteForm:
-    pass
+class PetEditForm(DisabledFormMixin, PetBaseForm):
+    disabled_fields = ('name',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._disable_fields()
+
+
+class PetDeleteForm(DisabledFormMixin, PetBaseForm):
+    disabled_fields = ('name', 'date_of_birth', 'personal_photo')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._disable_fields()
+
+
+    def save(self, commit=True):
+        if commit:
+            self.instance.delete()
+        return self.instance
+        
+        
