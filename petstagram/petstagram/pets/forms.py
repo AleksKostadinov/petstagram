@@ -22,9 +22,11 @@ class PetCreateForm(forms.ModelForm):
             ),
             'date_of_birth': forms.DateInput(
                 attrs={
-                    'placeholder': 'mm/dd/yyyy',
+                    # 'placeholder': 'mm/dd/yyyy',
+                    'type': 'date',
                 }
             ),
+            
             'personal_photo': forms.URLInput(
                 attrs={
                     'placeholder': 'Link to image',
