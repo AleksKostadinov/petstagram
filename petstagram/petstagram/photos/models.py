@@ -11,7 +11,7 @@ class Photo(StrFromFieldsMixin, models.Model):
     MAX_DESCRIPTION_LENGTH = 300
     MAX_LOCATION_LENGTH = 30
 
-    photo = models.ImageField(upload_to='mediafiles/pet_photos/', null=False, blank=True, validators=(validate_file_less_than_5mb,))
+    photo = models.ImageField(upload_to='pet_photos/', null=False, blank=True, validators=(validate_file_less_than_5mb,))
     description = models.CharField(max_length=MAX_DESCRIPTION_LENGTH,
                                    validators=(MinLengthValidator(MIN_DESCRIPTION_LENGTH),), null=True, blank=True,)
     location = models.CharField(
