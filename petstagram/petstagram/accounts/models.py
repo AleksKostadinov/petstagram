@@ -51,3 +51,8 @@ class AppUser(auth_models.AbstractUser):
         choices=Gender.choices(),
         max_length=Gender.max_len(),
     )
+    
+    @property
+    def fullname(self):
+        return
+    
