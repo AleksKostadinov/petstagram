@@ -24,14 +24,20 @@ class SignUpView(views.CreateView):
     form_class = UserCreateForm
     success_url = reverse_lazy('index')
     
+
+class SignOutView(auth_views.LogoutView):
+    next_page = reverse_lazy('index')
     
+
+class UserDetailsView(views.DetailView):
+    template_name = 'accounts/profile-details-page.html'
+    model = UserModel
+
+# def details_user(request, pk):
+#     return render(request, 'accounts/profile-details-page.html')
+
 def delete_user(request, pk):
     return render(request, 'accounts/profile-delete-page.html')
-
-
-def details_user(request, pk):
-    return render(request, 'accounts/profile-details-page.html')
-
 
 def edit_user(request, pk):
     return render(request, 'accounts/profile-edit-page.html')
