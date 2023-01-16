@@ -39,16 +39,32 @@ class UserDetailsView(views.DetailView):
 
         context['is_owner'] = self.request.user == self.object
         # context['photos_count'] = self.request.user
-        
+
         return context
 
 # def details_user(request, pk):
 #     return render(request, 'accounts/profile-details-page.html')
 
 
-def delete_user(request, pk):
-    return render(request, 'accounts/profile-delete-page.html')
+class UserDeleteView(views.DeleteView):
+    template_name = 'accounts/profile-delete-page.html'
+    model = UserModel
+    success_url = reverse_lazy('index')
+    
+    
+# def delete_user(request, pk):
+#     return render(request, 'accounts/profile-delete-page.html')
 
 
-def edit_user(request, pk):
-    return render(request, 'accounts/profile-edit-page.html')
+class UserEditView(views.UpdateView):
+    template_name = 'accounts/profile-edit-page.html'
+    model = UserModel
+    fields = ('first_name', 'last_name', 'gender', 'email',)
+
+    def get_success_url(self):
+        return reverse_lazy('details user', kwargs={
+            'pk': self.request.user.pk,
+        })
+
+# def edit_user(request, pk):
+#     return render(request, 'accounts/profile-edit-page.html')
