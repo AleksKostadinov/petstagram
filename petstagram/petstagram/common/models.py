@@ -1,6 +1,8 @@
 from django.db import models
-
 from petstagram.photos.models import Photo
+from django.contrib.auth import get_user_model
+
+UserModel = get_user_model()
 
 class PhotoComment(models.Model):
     MAX_TEXT_LENGTH = 300
@@ -11,7 +13,16 @@ class PhotoComment(models.Model):
     
     photo = models.ForeignKey(Photo, on_delete=models.RESTRICT, null=False, blank=True,)
 
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.RESTRICT,
+    )
+
 
 class PhotoLike(models.Model):
     photo = models.ForeignKey(Photo, on_delete=models.RESTRICT, null=False, blank=True,)
 
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.RESTRICT,
+    )
