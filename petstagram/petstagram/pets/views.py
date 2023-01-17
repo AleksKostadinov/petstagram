@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from petstagram.core.photo_utils import apply_likes_count, apply_user_liked_photo
 from petstagram.pets.forms import PetCreateForm, PetDeleteForm, PetEditForm
-from petstagram.pets.models import Pet
 from petstagram.pets.utils import get_pet_by_name_and_username
+from django.contrib.auth.decorators import login_required
 
 def details_pet(request, username, pet_slug):
     pet = get_pet_by_name_and_username(pet_slug, username)
@@ -23,6 +23,7 @@ def details_pet(request, username, pet_slug):
     )
 
 
+@login_required
 def add_pet(request):
     if request.method == 'GET':
         form = PetCreateForm()

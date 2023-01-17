@@ -1,9 +1,9 @@
-from audioop import reverse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from petstagram.common.utils import get_user_liked_photos
 from petstagram.photos.forms import PhotoCreateForm, PhotoDeleteForm, PhotoEditForm
 from petstagram.photos.models import Photo
+from django.contrib.auth.decorators import login_required
 
 
 def details_photo(request, pk):
@@ -29,6 +29,7 @@ def get_post_photo_form(request, form, success_url, template_path, pk=None):
     return render(request, template_path, context)
 
 
+@login_required
 def add_photo(request):
     if request.method == 'GET':
         form = PhotoCreateForm()
