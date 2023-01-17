@@ -97,7 +97,7 @@
 
         {% for pet in photo.tagged_pets.all %}
             {# TODO: change username to actual user when auth is available #}
-            <a href="{% url 'details pet' username='doncho' pet_slug=pet.slug %}">
+            <a href="{% url 'details pet' username=pet.user.username pet_slug=pet.slug %}">
                 <p class="message">
                     <b>{{ pet.name }}</b>
                 </p>
