@@ -2,18 +2,8 @@ from enum import Enum
 from django.contrib.auth import models as auth_models
 from django.db import models
 from django.core import validators
-
+from petstagram.core.model_mixins import ChoicesEnumMixin
 from petstagram.core.validators import validate_only_letters
-
-
-class ChoicesEnumMixin:
-    @classmethod
-    def choices(cls):
-        return [(x.name, x.value) for x in cls]
-        
-    @classmethod
-    def max_len(cls):
-        return max(len(name) for name, _ in cls.choices())
         
         
 class Gender(ChoicesEnumMixin, Enum):
