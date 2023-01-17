@@ -35,7 +35,10 @@ def add_photo(request):
     else:
         form = PhotoCreateForm(request.POST, request.FILES)
         if form.is_valid():
-            photo = form.save()  # returns the object saved
+            photo = form.save(commit=False)
+            photo.user = request.user
+            photo.save()
+            
             return redirect('details photo', pk=photo.pk)
     context = {
         'form': form,
