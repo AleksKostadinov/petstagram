@@ -13,3 +13,5 @@ urlpatterns = [
         path('edit/', UserEditView.as_view(), name='edit user'),
     ])),
 ]
+
+from .signals import *
