@@ -12,7 +12,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 
-DEBUG = int(os.environ.get('DEBUG', 1))
+DEBUG = str(os.environ.get('DEBUG')) == '1'
 # DEBUG = True
 
 # ALLOWED_HOSTS = [
