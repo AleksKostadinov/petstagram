@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-
+import cloudinary
 from django.urls import reverse_lazy
 
 
@@ -12,7 +12,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 
-DEBUG = str(os.environ.get('DEBUG')) == '1'
+# DEBUG = str(os.environ.get('DEBUG')) == '1'
+DEBUG = int(os.environ.get('DEBUG', 1))
 # DEBUG = True
 
 # ALLOWED_HOSTS = [
@@ -32,6 +33,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    
+    'cloudinary',
     "petstagram.accounts",
     "petstagram.common",
     "petstagram.pets",
@@ -143,7 +146,15 @@ STATIC_ROOT = '/tmp/petstagram/staticfiles'
 
 MEDIA_URL = "/media/"
 
-MEDIA_ROOT = BASE_DIR / "mediafiles"
+# MEDIA_ROOT = BASE_DIR / "mediafiles"
+# MEDIA_ROOT = '/tmp/petstagram/mediafiles'
+
+cloudinary.config(
+    cloud_name="dwmjmezit",
+    api_key="245626414781894",
+    api_secret="8NdwN5s4qZ_sV5wqzN7HBWOC4xw",
+    secure=True
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
