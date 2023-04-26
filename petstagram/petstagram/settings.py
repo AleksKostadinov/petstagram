@@ -1,25 +1,18 @@
+from dotenv import load_dotenv
 import os
 from pathlib import Path
 
 import cloudinary
 from django.urls import reverse_lazy
 
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-
-
-# DEBUG = str(os.environ.get('DEBUG')) == '1'
 DEBUG = int(os.environ.get('DEBUG', 1))
-# DEBUG = True
 
-# ALLOWED_HOSTS = [
-#     "localhost",
-#     "127.0.0.1",
-# ]
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(' ')
 
 CSRF_TRUSTED_ORIGINS = [f"https://{x}" for x in ALLOWED_HOSTS]
@@ -33,7 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    
+
     'cloudinary',
     "petstagram.accounts",
     "petstagram.common",
@@ -71,7 +64,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "petstagram.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -85,18 +77,6 @@ DATABASES = {
         'PORT': os.environ.get('DB_PORT'),
     },
 }
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "petstagram_db",
-#         "USER": "postgres",
-#         "PASSWORD": "postgres",
-#         "HOST": "127.0.0.1",
-#         "PORT": "5432",
-#     },
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -118,7 +98,6 @@ else:
         },
     ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -129,7 +108,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -164,7 +142,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "accounts.AppUser"
 
 LOGIN_REDIRECT_URL = reverse_lazy("index")
-
 
 if DEBUG:
     EMAIL_HOST = os.environ.get('EMAIL_HOST')
